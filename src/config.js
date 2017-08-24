@@ -7,7 +7,7 @@ export const firebaseConfig = {
     databaseURL: `https://${appName}.firebaseio.com`,
     projectId: appName,
     storageBucket: `${appName}.appspot.com`,
-    messagingSenderId: "789814589283"
+    messagingSenderId: "497019564518"
 }
 
 firebase.initializeApp(firebaseConfig)
