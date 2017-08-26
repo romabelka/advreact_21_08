@@ -1,4 +1,4 @@
-## HT1.1 Сделать форму для добавления людей(firstName, lastName, email) с валидацией, по /people роуту 
+## HT1.1 Сделать форму для добавления людей(firstName, lastName, email) с валидацией, по /people роуту(inprogress)
 
 ## HT1.2 добавлять их в редакс-стор 
 
