@@ -4,10 +4,6 @@ import emailValidator from 'email-validator'
 import ErrorField from '../common/ErrorField'
 
 class RegisteredUserForm extends Component {
-    static propTypes = {
-
-    };
-
     render() {
         const {handleSubmit} = this.props
         return (
@@ -27,15 +23,19 @@ class RegisteredUserForm extends Component {
     }
 }
 
-const validate = ({email, password}) => {
-    const errors = {}
-
+const validate = ({firstName,lastName, email}) => {
+    //debugger
+    let  errors = {}
+    const validateName = (param,label)=>{
+        
+        if (!param) errors[label] = `${label} is required`
+            else if (/^[a-zA-Zа-яА-ЯёЁ]$/.test(param)) errors[label] = `invalid ${label}`
+    }
     if (!email) errors.email = 'email is required'
-    else if (!emailValidator.validate(email)) errors.email = 'invalid email'
-
-    if (!password) errors.password = 'password is required'
-    else if (password.length < 8) errors.password = 'to short'
-
+        else if (!emailValidator.validate(email)) errors.email = 'invalid email'
+    
+    validateName(lastName,'lastName')
+    validateName(firstName,'firstName')
     return errors
 }
 
