@@ -34,6 +34,16 @@ const validate = ({email}) => {
     if (!email) errors.email = 'email is required'
     else if (!emailValidator.validate(email)) errors.email = 'invalid email'
 
+    /*тут бы еще хотелось проверять, есть ли уже такой e-mail, но я вот не знаю как лучше подрубить стор?
+    как то так?
+    export default connect(state => ({..}))(reduxForm({
+        form: 'addPeople',
+        validate
+    })(AddUserForm))
+    *
+    * */
+
+
     return errors
 }
 

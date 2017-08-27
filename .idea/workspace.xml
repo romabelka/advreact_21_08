@@ -1,13 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="5803fcdc-d901-4e49-b015-72152884f7a4" name="Default" comment="HT_1">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/components/people/AddUserForm.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/components/routes/PeoplePage.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/ducks/people.js" />
+    <list default="true" id="5803fcdc-d901-4e49-b015-72152884f7a4" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/Root.js" afterPath="$PROJECT_DIR$/src/components/Root.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/redux/reducer.js" afterPath="$PROJECT_DIR$/src/redux/reducer.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/people/AddUserForm.js" afterPath="$PROJECT_DIR$/src/components/people/AddUserForm.js" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -91,11 +87,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="AddUserForm.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="AddUserForm.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/components/people/AddUserForm.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="122">
-              <caret line="11" column="14" lean-forward="false" selection-start-line="11" selection-start-column="14" selection-end-line="11" selection-end-column="14" />
+            <state relative-caret-position="512">
+              <caret line="39" column="26" lean-forward="true" selection-start-line="39" selection-start-column="26" selection-end-line="39" selection-end-column="26" />
               <folding>
                 <element signature="e#0#40#0" expanded="true" />
               </folding>
@@ -115,7 +111,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="people.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="people.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/ducks/people.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="270">
@@ -153,9 +149,9 @@
         <option value="$PROJECT_DIR$/src/components/people/AddPeopleForm.js" />
         <option value="$PROJECT_DIR$/src/ducks/auth.js" />
         <option value="$PROJECT_DIR$/src/redux/reducer.js" />
-        <option value="$PROJECT_DIR$/src/components/people/AddUserForm.js" />
         <option value="$PROJECT_DIR$/src/components/routes/PeoplePage.js" />
         <option value="$PROJECT_DIR$/src/ducks/people.js" />
+        <option value="$PROJECT_DIR$/src/components/people/AddUserForm.js" />
       </list>
     </option>
   </component>
@@ -256,7 +252,7 @@
       <option name="presentableId" value="Default" />
       <updated>1503779144919</updated>
       <workItem from="1503779146290" duration="1113000" />
-      <workItem from="1503780667194" duration="10039000" />
+      <workItem from="1503780667194" duration="10725000" />
     </task>
     <task id="LOCAL-00001" summary="123">
       <created>1503780272995</created>
@@ -265,11 +261,18 @@
       <option name="project" value="LOCAL" />
       <updated>1503780272996</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="HT_1">
+      <created>1503834001421</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1503834001421</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="11152000" />
+    <option name="totallyTimeSpent" value="11838000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="59" y="-4" width="1863" height="1092" extended-state="6" />
@@ -302,7 +305,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="123" />
-    <option name="LAST_COMMIT_MESSAGE" value="123" />
+    <MESSAGE value="HT_1" />
+    <option name="LAST_COMMIT_MESSAGE" value="HT_1" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -423,28 +427,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/README.md">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="15">
-          <caret line="1" column="3" lean-forward="false" selection-start-line="1" selection-start-column="3" selection-end-line="1" selection-end-column="3" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/components/routes/PeoplePage.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="420">
           <caret line="28" column="33" lean-forward="true" selection-start-line="28" selection-start-column="33" selection-end-line="28" selection-end-column="33" />
-          <folding>
-            <element signature="e#0#40#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/people/AddUserForm.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="122">
-          <caret line="11" column="14" lean-forward="false" selection-start-line="11" selection-start-column="14" selection-end-line="11" selection-end-column="14" />
           <folding>
             <element signature="e#0#40#0" expanded="true" />
           </folding>
@@ -457,6 +443,24 @@
           <caret line="18" column="62" lean-forward="true" selection-start-line="18" selection-start-column="62" selection-end-line="18" selection-end-column="62" />
           <folding>
             <element signature="e#0#38#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/README.md">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="15">
+          <caret line="1" column="3" lean-forward="false" selection-start-line="1" selection-start-column="3" selection-end-line="1" selection-end-column="3" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/people/AddUserForm.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="512">
+          <caret line="39" column="26" lean-forward="true" selection-start-line="39" selection-start-column="26" selection-end-line="39" selection-end-column="26" />
+          <folding>
+            <element signature="e#0#40#0" expanded="true" />
           </folding>
         </state>
       </provider>
