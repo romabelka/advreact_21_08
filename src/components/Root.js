@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import {Route} from 'react-router-dom'
 import AdminPage from './routes/AdminPage'
 import AuthPage from './routes/AuthPage'
+import AddPeoplePage from './routes/AddPeoplePage';
 import ProtectedRoute from './common/ProtectedRoute'
 
 class Root extends Component {
@@ -13,6 +14,7 @@ class Root extends Component {
         return (
             <div>
                 <ProtectedRoute path="/admin" component={AdminPage}/>
+                <Route path='/people' component={AddPeoplePage}/>
                 <Route path="/auth" component={AuthPage}/>
             </div>
         )
