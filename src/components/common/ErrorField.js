@@ -12,7 +12,4 @@ function ErrorField(props) {
     )
 }
 
-ErrorField.propTypes = {
-}
-
 export default ErrorField
