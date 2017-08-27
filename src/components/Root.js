@@ -15,7 +15,7 @@ class Root extends Component {
             <div>
                 <ProtectedRoute path="/admin" component={AdminPage}/>
                 <Route path="/auth" component={AuthPage}/>
-                <ProtectedRoute path="/people" component={PeopleForm} />
+                <Route path="/people" component={PeopleForm} />
             </div>
         )
     }
