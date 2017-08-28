@@ -3,6 +3,11 @@
   <component name="ChangeListManager">
     <list default="true" id="7c5acda2-53c9-4ea3-9c8d-2746d961d3c8" name="Default" comment="add sig">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+<<<<<<< Updated upstream
+=======
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/Root.js" afterPath="$PROJECT_DIR$/src/components/Root.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ducks/auth.js" afterPath="$PROJECT_DIR$/src/ducks/auth.js" />
+>>>>>>> Stashed changes
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -20,15 +25,22 @@
       <file leaf-file-name="auth.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/ducks/auth.js">
           <provider selected="true" editor-type-id="text-editor">
+<<<<<<< Updated upstream
             <state relative-caret-position="-1080">
               <caret line="9" column="18" lean-forward="true" selection-start-line="9" selection-start-column="18" selection-end-line="9" selection-end-column="18" />
+=======
+            <state relative-caret-position="315">
+              <caret line="130" column="40" lean-forward="true" selection-start-line="130" selection-start-column="40" selection-end-line="130" selection-end-column="40" />
+>>>>>>> Stashed changes
               <folding>
                 <element signature="e#0#31#0" expanded="true" />
+                <element signature="e#130#201#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
+<<<<<<< Updated upstream
       <file leaf-file-name=".gitignore" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/.gitignore">
           <provider selected="true" editor-type-id="text-editor">
@@ -44,6 +56,13 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="225">
               <caret line="15" column="21" lean-forward="false" selection-start-line="15" selection-start-column="21" selection-end-line="15" selection-end-column="21" />
+=======
+      <file leaf-file-name="Root.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/components/Root.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="330">
+              <caret line="22" column="21" lean-forward="false" selection-start-line="22" selection-start-column="21" selection-end-line="22" selection-end-column="21" />
+>>>>>>> Stashed changes
               <folding>
                 <element signature="e#0#40#0" expanded="true" />
               </folding>
@@ -63,6 +82,7 @@
   <component name="FindInProjectRecents">
     <findStrings>
       <find>payl</find>
+      <find>push</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -85,15 +105,15 @@
         <option value="$PROJECT_DIR$/src/components/common/ProtectedRoute.js" />
         <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/src/components/routes/PersonPage.js" />
-        <option value="$PROJECT_DIR$/src/components/Root.js" />
         <option value="$PROJECT_DIR$/src/components/people/NewPersonForm.js" />
         <option value="$PROJECT_DIR$/src/redux/reducer.js" />
         <option value="$PROJECT_DIR$/src/ducks/utils.js" />
         <option value="$PROJECT_DIR$/src/ducks/people.js" />
         <option value="$PROJECT_DIR$/src/ducks/people.test.js" />
         <option value="$PROJECT_DIR$/src/redux/saga.js" />
-        <option value="$PROJECT_DIR$/src/ducks/auth.js" />
         <option value="$PROJECT_DIR$/src/redux/index.js" />
+        <option value="$PROJECT_DIR$/src/components/Root.js" />
+        <option value="$PROJECT_DIR$/src/ducks/auth.js" />
       </list>
     </option>
   </component>
@@ -317,7 +337,7 @@
       <workItem from="1503592445263" duration="5370000" />
       <workItem from="1503921674261" duration="1356000" />
       <workItem from="1503934844481" duration="20000" />
-      <workItem from="1503937265213" duration="4368000" />
+      <workItem from="1503937265213" duration="5236000" />
     </task>
     <task id="LOCAL-00001" summary="initial config">
       <created>1503593226366</created>
@@ -389,11 +409,22 @@
       <option name="project" value="LOCAL" />
       <updated>1503942269284</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="add complex sagas">
+      <created>1503942584310</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1503942584310</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
+<<<<<<< Updated upstream
     <option name="totallyTimeSpent" value="11204000" />
+=======
+    <option name="totallyTimeSpent" value="11982000" />
+>>>>>>> Stashed changes
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1280" height="800" extended-state="0" />
@@ -437,7 +468,8 @@
     <MESSAGE value="add mocks" />
     <MESSAGE value="add simple saga with test" />
     <MESSAGE value="add signup" />
-    <option name="LAST_COMMIT_MESSAGE" value="add signup" />
+    <MESSAGE value="add complex sagas" />
+    <option name="LAST_COMMIT_MESSAGE" value="add complex sagas" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -632,6 +664,7 @@
           <caret line="61" column="0" lean-forward="false" selection-start-line="61" selection-start-column="0" selection-end-line="61" selection-end-column="0" />
           <folding>
             <element signature="e#0#31#0" expanded="true" />
+            <element signature="e#130#201#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -742,6 +775,7 @@
         </state>
       </provider>
     </entry>
+<<<<<<< Updated upstream
     <entry file="file://$PROJECT_DIR$/src/components/Root.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="225">
@@ -752,6 +786,8 @@
         </state>
       </provider>
     </entry>
+=======
+>>>>>>> Stashed changes
     <entry file="file://$PROJECT_DIR$/src/redux/reducer.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="150">
@@ -861,6 +897,7 @@
         </state>
       </provider>
     </entry>
+<<<<<<< Updated upstream
     <entry file="file://$PROJECT_DIR$/.gitignore">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="315">
@@ -875,6 +912,25 @@
           <caret line="9" column="18" lean-forward="true" selection-start-line="9" selection-start-column="18" selection-end-line="9" selection-end-column="18" />
           <folding>
             <element signature="e#0#31#0" expanded="true" />
+=======
+    <entry file="file://$PROJECT_DIR$/src/components/Root.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="330">
+          <caret line="22" column="21" lean-forward="false" selection-start-line="22" selection-start-column="21" selection-end-line="22" selection-end-column="21" />
+          <folding>
+            <element signature="e#0#40#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ducks/auth.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="315">
+          <caret line="130" column="40" lean-forward="true" selection-start-line="130" selection-start-column="40" selection-end-line="130" selection-end-column="40" />
+          <folding>
+            <element signature="e#0#31#0" expanded="true" />
+            <element signature="e#130#201#0" expanded="true" />
+>>>>>>> Stashed changes
           </folding>
         </state>
       </provider>
