@@ -1,41 +1,61 @@
 import {appName} from '../config'
-import {Record, List} from 'immutable'
+import {List, Record} from 'immutable'
+import {reset} from 'redux-form'
 
-const ReducerState = Record({
-    entities: new List([])
+const PeopleListRecord = Record({
+  peopleList: List(),
+  error: null,
+  loading: false
 })
 
 const PersonRecord = Record({
-    id: null,
-    firstName: null,
-    lastName: null,
-    email: null
+  id: null,
+  firstName: null,
+  lastName: null,
+  email: null
 })
 
 export const moduleName = 'people'
-const prefix = `${appName}/${moduleName}`
-export const ADD_PERSON = `${prefix}/ADD_PERSON`
+export const ADD_PERSON_REQUEST = `${appName}/${moduleName}/ADD_PERSON_REQUEST`
+export const ADD_PERSON_SUCCESS = `${appName}/${moduleName}/ADD_PERSON_SUCCESS`
+export const ADD_PERSON_ERROR = `${appName}/${moduleName}/ADD_PERSON_ERROR`
 
 
-export default function reducer(state = new ReducerState(), action) {
-    const {type, payload} = action
+export default function reducer(state = new PeopleListRecord(), action) {
+  const {type, payload, error} = action
 
-    switch (type) {
-        case ADD_PERSON:
-            return state.update('entities', entities => entities.push(new PersonRecord(payload.person)))
+  switch (type) {
+  case ADD_PERSON_REQUEST:
+    return state.set('loading', true)
 
-        default:
-            return state
-    }
+  case ADD_PERSON_SUCCESS:
+    return state
+      .set('loading', false)
+      .set('error', null)
+      .setIn(['peopleList', state.get('peopleList').size], new PersonRecord({
+        id: state.get('peopleList').size,
+        firstName: payload.firstName,
+        lastName: payload.lastName,
+        email: payload.email
+      }))
+
+  case ADD_PERSON_ERROR:
+    return state
+      .set('loading', false)
+      .set('error', error)
+
+  default:
+    return state
+  }
 }
 
-export function addPerson(person) {
-    return (dispatch) => {
-        dispatch({
-            type: ADD_PERSON,
-            payload: {
-                person: {id: Date.now(), ...person}
-            }
-        })
-    }
+export function addPerson(firstName, lastName, email) {
+  return (dispatch) => {
+    dispatch({
+      type: ADD_PERSON_SUCCESS,
+      payload: {firstName, lastName, email}
+    })
+    // Dispatching this to reset redux-form
+    dispatch(reset('people'))
+  }
 }
