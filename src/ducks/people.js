@@ -2,6 +2,8 @@ import {appName} from '../config'
 import {Record, List} from 'immutable'
 import {put, call, takeEvery} from 'redux-saga/effects'
 import {generateId} from './utils'
+import {reset} from 'redux-form';
+
 
 const ReducerState = Record({
     entities: new List([])
@@ -46,20 +48,9 @@ export const addPersonSaga = function * (action) {
         type: ADD_PERSON,
         payload: {...action.payload, id}
     })
+    yield put(reset('person'))
 }
 
-/*
-export function addPerson(person) {
-    return (dispatch) => {
-        dispatch({
-            type: ADD_PERSON,
-            payload: {
-                person: {id: Date.now(), ...person}
-            }
-        })
-    }
-}
-*/
 
 export const saga = function * () {
     yield takeEvery(ADD_PERSON_REQUEST, addPersonSaga)
