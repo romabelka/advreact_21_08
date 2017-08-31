@@ -1,0 +1,30 @@
+{
+  "name": "adv_21_08",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "email-validator": "^1.1.1",
+    "firebase": "^4.3.0",
+    "history": "^4.7.2",
+    "immutable": "^3.8.1",
+    "react": "^15.6.1",
+    "react-dom": "^15.6.1",
+    "react-redux": "^5.0.6",
+    "react-router-dom": "^4.2.0",
+    "react-router-redux": "next",
+    "redux": "^3.7.2",
+    "redux-form": "^7.0.3",
+    "redux-logger": "^3.0.6",
+    "redux-saga": "^0.15.6",
+    "redux-thunk": "^2.2.0"
+  },
+  "devDependencies": {
+    "react-scripts": "1.0.11"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  }
+}
