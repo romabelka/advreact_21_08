@@ -85,6 +85,7 @@ export const signInSaga = function * () {
                 type: SIGN_IN_SUCCESS,
                 payload: {user}
             })
+            yield put(push('/people'))
         } catch (error) {
             yield put({
                 type: SIGN_IN_ERROR,
@@ -109,6 +110,7 @@ export const signUpSaga = function * () {
                 type: SIGN_UP_SUCCESS,
                 payload: {user}
             })
+            yield put(push('/people'))
         } catch (error) {
             yield put({
                 type: SIGN_UP_ERROR,
