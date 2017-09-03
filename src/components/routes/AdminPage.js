@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import {Route, NavLink} from 'react-router-dom'
 import {connect} from 'react-redux'
-import {addUser} from '../../ducks/registeredUser'
+import {addPerson} from '../../ducks/people'
 import RegisteredUserForm from '../admin/RegisteredUserForm'
 import UserList from '../admin/UserList'
 
@@ -18,7 +18,7 @@ class AdminPage extends Component {
             </div>
         )
     }
-    handleAddUser=({email, lastName,firstName}) => this.props.addUser(email, lastName,firstName)
+    handleAddUser=({email, lastName,firstName}) => this.props.addPerson({email, lastName,firstName})
 }
 
-export default connect(null, {addUser})(AdminPage)
+export default connect(null, {addPerson})(AdminPage)

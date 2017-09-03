@@ -22,7 +22,7 @@ export const SIGN_IN_ERROR = `${appName}/${moduleName}/SIGN_IN_ERROR`
 
 export const SIGN_OUT_REQUEST = `${appName}/${moduleName}/SIGN_OUT_REQUEST`
 export const SIGN_OUT_SUCCESS = `${appName}/${moduleName}/SIGN_OUT_SUCCESS`
-const AUTH = firebase.auth()
+export const AUTH = firebase.auth()
 
 //console.log('---', ReducerRecord)
 export default function reducer(state = new ReducerRecord(), action) {
@@ -97,19 +97,20 @@ export const signUpSaga = function * () {
 
 export const signInSaga = function * () {
 
-
     while (true) {
         const action = yield take(SIGN_IN_REQUEST)
-
         try {
             const user = yield call(
                 [AUTH, AUTH.signInWithEmailAndPassword],
                 action.payload.email, action.payload.password
             )
+            
             yield put({
                 type: SIGN_IN_SUCCESS,
                 payload: {user}
             })
+            yield put(push('/admin/people'))
+
         } catch (error) {
             yield put({
                 type: SIGN_IN_ERROR,
@@ -148,8 +149,8 @@ export const signOutSaga = function * () {
 export const saga = function * () {
     yield all([
         signUpSaga(),
+        signInSaga(),
         watchStatusChange(),
         takeEvery(SIGN_OUT_REQUEST, signOutSaga),
-        takeEvery(SIGN_OUT_REQUEST,signInSaga)
     ])
 }

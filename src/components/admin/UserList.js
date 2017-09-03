@@ -1,11 +1,10 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {moduleName} from '../../ducks/registeredUser'
+import {moduleName} from '../../ducks/people'
 
 
 const UserList = (props)=>{
-    console.log(props)
-        const _list = props.users.map(
+        const _list = props.people.map(
             user=><li>{user.firstName} /{user.lastName}/ {user.email}</li>)
         return (
             <div>
@@ -16,5 +15,5 @@ const UserList = (props)=>{
 }
 
 export default connect(store=>({
-    users:store[moduleName].users
+    people:store[moduleName].entities
 }))(UserList)
