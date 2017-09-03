@@ -66,6 +66,13 @@ export function signUp(email, password) {
     }
 }
 
+export function signIn(email, password) {
+    return {
+        type: SIGN_IN_REQUEST,
+        payload: {email, password}
+    }
+}
+
 export function signOut() {
     return {
         type: SIGN_OUT_REQUEST
@@ -77,7 +84,7 @@ export const signUpSaga = function * () {
 
     while (true) {
         const action = yield take(SIGN_UP_REQUEST)
-
+        
         try {
             const user = yield call(
                 [auth, auth.createUserWithEmailAndPassword],
@@ -98,9 +105,10 @@ export const signUpSaga = function * () {
 
 export const signInSaga = function * () {
     const auth = firebase.auth()
-
+    
     while (true) {
         const action = yield take(SIGN_IN_REQUEST);
+        // debugger
         try {
                 //UserCredential
             const user = yield call(
