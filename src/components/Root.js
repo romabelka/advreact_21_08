@@ -15,12 +15,15 @@ class Root extends Component {
 
     render() {
         const {signOut, signedIn} = this.props
-        const btn = signedIn
-            ? <button onClick = {signOut}>Sign out</button>
-            : <Link to="/auth/signin">sign in</Link>
+        const controls = signedIn
+            ? (<div>
+                <Link to="/people">People</Link>
+                <button onClick = {signOut}>Sign out</button>
+               </div>)
+            : <Link to="/auth/signin">Sign in</Link>
         return (
             <div>
-                {btn}
+                {controls}
                 <ProtectedRoute path="/admin" component={AdminPage}/>
                 <ProtectedRoute path="/people" component={PersonPage}/>
                 <Route path="/auth" component={AuthPage}/>
