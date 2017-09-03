@@ -1,45 +1,66 @@
-// import firebase from 'firebase'
 import {appName} from '../config'
-import {Record} from 'immutable'
+import {Record, List} from 'immutable'
+import {put, call, takeEvery} from 'redux-saga/effects'
+import {generateId} from './utils'
 
-const ReducerRecord = Record({
-    user: null,
-    error: null,
-    loading: false
+const ReducerState = Record({
+    entities: new List([])
+})
+
+const PersonRecord = Record({
+    id: null,
+    firstName: null,
+    lastName: null,
+    email: null
 })
 
 export const moduleName = 'people'
-export const ADD_USER_REQUEST = `${appName}/${moduleName}/ADD_USER_REQUEST`
-export const ADD_USER_SUCCESS = `${appName}/${moduleName}/ADD_USER_SUCCESS`
-export const ADD_USER_ERROR = `${appName}/${moduleName}/ADD_USER_ERROR`
-export const ADD_USER = `${appName}/${moduleName}/ADD_USER`
+const prefix = `${appName}/${moduleName}`
+export const ADD_PERSON_REQUEST = `${prefix}/ADD_PERSON_REQUEST`
+export const ADD_PERSON = `${prefix}/ADD_PERSON`
 
-export function addUser (email, first_name, last_name) {
-    return (dispatch) => {
-        dispatch({type: ADD_USER, payload: {user : {email, first_name, last_name} }})
+
+export default function reducer(state = new ReducerState(), action) {
+    const {type, payload} = action
+
+    switch (type) {
+        case ADD_PERSON:
+            return state.update('entities', entities => entities.push(new PersonRecord(payload)))
+
+        default:
+            return state
     }
 }
 
+export function addPerson(person) {
+    return {
+        type: ADD_PERSON_REQUEST,
+        payload: person
+    }
+}
 
-export default function reducer(state = new ReducerRecord(), action) {
-    const {type, payload, error} = action
-    
-    switch(type) {
-        case ADD_USER_REQUEST:
-            return state
-                .set('loading', true)
+export const addPersonSaga = function * (action) {
+    const id = yield call(generateId)
 
-        case ADD_USER_SUCCESS:
-            return state
+    yield put({
+        type: ADD_PERSON,
+        payload: {...action.payload, id}
+    })
+}
 
-        case ADD_USER_ERROR: 
-            return state
-                .set('loading', false)
-                .set('error', error)
-        case ADD_USER:
-            return state
-                .set('user', payload.user)
-        default:
-            return state;
-    } 
+/*
+export function addPerson(person) {
+    return (dispatch) => {
+        dispatch({
+            type: ADD_PERSON,
+            payload: {
+                person: {id: Date.now(), ...person}
+            }
+        })
+    }
+}
+*/
+
+export const saga = function * () {
+    yield takeEvery(ADD_PERSON_REQUEST, addPersonSaga)
 }
