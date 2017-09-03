@@ -15,9 +15,14 @@ export const moduleName = 'auth'
 export const SIGN_UP_REQUEST = `${appName}/${moduleName}/SIGN_UP_REQUEST`
 export const SIGN_UP_SUCCESS = `${appName}/${moduleName}/SIGN_UP_SUCCESS`
 export const SIGN_UP_ERROR = `${appName}/${moduleName}/SIGN_UP_ERROR`
+
 export const SIGN_IN_SUCCESS = `${appName}/${moduleName}/SIGN_IN_SUCCESS`
+export const SIGN_IN_REQUEST = `${appName}/${moduleName}/SIGN_IN_REQUEST`
+export const SIGN_IN_ERROR = `${appName}/${moduleName}/SIGN_IN_ERROR`
+
 export const SIGN_OUT_REQUEST = `${appName}/${moduleName}/SIGN_OUT_REQUEST`
 export const SIGN_OUT_SUCCESS = `${appName}/${moduleName}/SIGN_OUT_SUCCESS`
+const AUTH = firebase.auth()
 
 //console.log('---', ReducerRecord)
 export default function reducer(state = new ReducerRecord(), action) {
@@ -53,6 +58,13 @@ export function signUp(email, password) {
     }
 }
 
+export function signIn(email, password) {
+    return {
+        type: SIGN_IN_REQUEST,
+        payload: {email, password}
+    }
+}
+
 export function signOut() {
     return {
         type: SIGN_OUT_REQUEST
@@ -60,14 +72,14 @@ export function signOut() {
 }
 
 export const signUpSaga = function * () {
-    const auth = firebase.auth()
+
 
     while (true) {
         const action = yield take(SIGN_UP_REQUEST)
 
         try {
             const user = yield call(
-                [auth, auth.createUserWithEmailAndPassword],
+                [AUTH, AUTH.createUserWithEmailAndPassword],
                 action.payload.email, action.payload.password
             )
             yield put({
@@ -83,30 +95,34 @@ export const signUpSaga = function * () {
     }
 }
 
-/*
-export function signUp(email, password) {
-    return (dispatch) => {
-        dispatch({
-            type: SIGN_UP_REQUEST
-        })
+export const signInSaga = function * () {
 
-        firebase.auth().createUserWithEmailAndPassword(email, password)
-            .then(user => dispatch({
-                type: SIGN_UP_SUCCESS,
+
+    while (true) {
+        const action = yield take(SIGN_IN_REQUEST)
+
+        try {
+            const user = yield call(
+                [AUTH, AUTH.signInWithEmailAndPassword],
+                action.payload.email, action.payload.password
+            )
+            yield put({
+                type: SIGN_IN_SUCCESS,
                 payload: {user}
-            }))
-            .catch(error => dispatch({
-                type: SIGN_UP_ERROR,
+            })
+        } catch (error) {
+            yield put({
+                type: SIGN_IN_ERROR,
                 error
-            }))
+            })
+        }
     }
 }
-*/
 
 export const watchStatusChange = function * () {
-    const auth = firebase.auth()
+
     try {
-        yield cps([auth, auth.onAuthStateChanged])
+        yield cps([AUTH, AUTH.onAuthStateChanged])
     } catch (user) {
         yield put({
             type: SIGN_IN_SUCCESS,
@@ -115,22 +131,11 @@ export const watchStatusChange = function * () {
     }
 }
 
-/*
-firebase.auth().onAuthStateChanged(user => {
-    const store = require('../redux').default
-    store.dispatch({
-        type: SIGN_IN_SUCCESS,
-        payload: {user}
-    })
-})
-
-*/
-
 export const signOutSaga = function * () {
-    const auth = firebase.auth()
+
 
     try {
-        yield call([auth, auth.signOut])
+        yield call([AUTH, AUTH.signOut])
         yield put({
             type: SIGN_OUT_SUCCESS
         })
@@ -144,6 +149,7 @@ export const saga = function * () {
     yield all([
         signUpSaga(),
         watchStatusChange(),
-        takeEvery(SIGN_OUT_REQUEST, signOutSaga)
+        takeEvery(SIGN_OUT_REQUEST, signOutSaga),
+        takeEvery(SIGN_OUT_REQUEST,signInSaga)
     ])
 }

@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import {reduxForm, Field} from 'redux-form'
+import validate from './validate'
 
 class SignInForm extends Component {
     static propTypes = {
@@ -30,5 +31,6 @@ class SignInForm extends Component {
 }
 
 export default reduxForm({
-    form: 'auth'
+    form: 'auth',
+    validate
 })(SignInForm)
