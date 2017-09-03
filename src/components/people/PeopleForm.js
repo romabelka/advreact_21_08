@@ -7,7 +7,7 @@ import { connect } from 'react-redux'
 
 class PeopleForm extends Component {
     render() {
-        const { handleSubmit, submitting } = this.props;
+        const { handleSubmit, submitting, reset } = this.props;
         return (
             <div>
                 <h2>
@@ -18,7 +18,7 @@ class PeopleForm extends Component {
                     <Field name="last_name" component={ErrorField} />   
                     <Field name="email"  component={ErrorField} />
                     <div>
-                        <input type="submit" disabled={submitting} />
+                        <input type="submit" disabled={submitting} onClick={reset} />
                     </div> 
                 </form>  
             </div>
