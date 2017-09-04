@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import {connect} from 'react-redux'
-import {moduleName, fetchAll, eventListSelector} from '../../ducks/events'
+import {moduleName, fetchAll, selectEvent, eventListSelector} from '../../ducks/events'
 import Loader from '../common/Loader'
 
 export class EventList extends Component {
@@ -46,4 +46,4 @@ export class EventList extends Component {
 export default connect(state => ({
     events: eventListSelector(state),
     loading: state[moduleName].loading
-}), {fetchAll})(EventList)
+}), {fetchAll, selectEvent})(EventList)

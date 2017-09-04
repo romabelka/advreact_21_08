@@ -1,7 +1,7 @@
 import React from 'react'
 import {shallow, mount} from 'enzyme'
 import events from '../../mocks/conferences'
-import {EventList} from './EventList'
+import {EventList} from './TableEventList'
 import Loader from '../common/Loader'
 import {EventRecord} from '../../ducks/events'
 
