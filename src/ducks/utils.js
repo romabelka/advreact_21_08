@@ -1,4 +1,4 @@
-import {OrderedMap, Map} from 'immutable'
+import {OrderedMap, Map, List} from 'immutable'
 
 export function generateId() {
     return Date.now()
@@ -7,5 +7,11 @@ export function generateId() {
 export function fbDatatoEntities(data, RecordModel = Map) {
     return (new OrderedMap(data)).mapEntries(([uid, value]) => (
         [uid, (new RecordModel(value)).set('uid', uid)]
+    ))
+}
+
+export function fbPeopleDatatoEntities(data, RecordModel = Map) {
+    return (new List(data)).mapEntries(([uid, value]) => (
+        [uid, (new RecordModel(value)).set('id', uid)]
     ))
 }
