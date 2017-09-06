@@ -3,6 +3,7 @@ import {Record, List} from 'immutable'
 import {put, call, takeEvery} from 'redux-saga/effects'
 import {generateId} from './utils'
 import {reset} from 'redux-form'
+import firebase from 'firebase'
 
 const ReducerState = Record({
     entities: new List([])
@@ -41,7 +42,17 @@ export function addPerson(person) {
 }
 
 export const addPersonSaga = function * (action) {
+
     const id = yield call(generateId)
+
+    function saveEventsToFB(person) {
+        const eventsRef = firebase.database().ref('/people')
+        eventsRef.push(person);
+    }
+
+    firebase.database().ref('/people').once('value', data => {
+        saveEventsToFB(action.payload)
+    })
 
     yield put({
         type: ADD_PERSON,
@@ -50,6 +61,7 @@ export const addPersonSaga = function * (action) {
 
     yield put(reset('person'))
 }
+
 
 /*
 export function addPerson(person) {
