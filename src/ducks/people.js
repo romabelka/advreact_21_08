@@ -45,13 +45,14 @@ export function addPerson(person) {
         payload: person
     }
 }
-function addPersonToFB(userId, {firstName,lastName,email}) {
+export function addPersonToFB(userId, {firstName,lastName,email}) {
     firebase.database().ref('users/' + userId).set({
         firstName,
         lastName,
         email
     });
   }
+
 
 export const addPersonSaga = function * (action) {
     try {

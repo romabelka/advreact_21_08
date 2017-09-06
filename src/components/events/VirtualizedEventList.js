@@ -15,7 +15,7 @@ export class EventList extends Component {
 
     render() {
         const {loaded, events} = this.props
-//        if (loading) return <Loader/>
+        // if (loading) return <Loader/>
         return (
             <InfiniteLoader
                 isRowLoaded={this.isRowLoaded}
