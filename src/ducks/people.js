@@ -1,6 +1,6 @@
 import {appName} from '../config'
 import {Record, List} from 'immutable'
-import {put, call, all, take} from 'redux-saga/effects'
+import {put, call, all, take, takeEvery} from 'redux-saga/effects'
 import {generateId, fbPeopleDatatoEntities} from './utils'
 import {reset} from 'redux-form'
 import {addPersonToFB} from '../mocks/index'
@@ -15,7 +15,7 @@ const ReducerState = Record({
     loaded: false
 })
 
-const PersonRecord = Record({
+export const PersonRecord = Record({
     id: null,
     firstName: null,
     lastName: null,
@@ -72,20 +72,17 @@ export function fetchPeople() {
 
 export const addPersonSaga = function * (action) {
 
-    while(true) {
-        yield take(ADD_PERSON_REQUEST)
+    const id = yield call(generateId)
 
-        const id = yield call(generateId)
+    addPersonToFB(action.payload)
 
-        addPersonToFB(action.payload)
+    yield put({
+        type: ADD_PERSON,
+        payload: {...action.payload, id}
+    })
 
-        yield put({
-            type: ADD_PERSON,
-            payload: {...action.payload, id}
-        })
+    yield put(reset('person'))
 
-        yield put(reset('person'))
-    }
 }
 
 export const fetchPeopleSaga = function * () {
@@ -117,8 +114,8 @@ export function addPerson(person) {
 */
 
 export const saga = function * () {
+    yield takeEvery(ADD_PERSON_REQUEST, addPersonSaga)//не понял, как их объединить?
     yield all([
-        addPersonSaga,
         fetchPeopleSaga()
     ])
 }
