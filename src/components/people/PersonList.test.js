@@ -2,17 +2,14 @@ import React from 'react'
 import {shallow, mount} from 'enzyme'
 import {PersonList} from './PersonList'
 import Loader from '../common/Loader'
+import renderer from 'react-test-renderer'
+import people from '../../mocks/people.mock'
 
-const testPeople = []
+jest.mock('react-dom', () => ({
+  findDOMNode: () => ({}),
+}));
 
-for (let i = 0; i < 123; i += 1) {
-  testPeople.push({
-    uid: Math.random().toString(),
-    firstName: Math.random().toString(),
-    lastName: Math.random().toString(),
-    email: `${Math.random().toString()}@${Math.random().toString()}`
-  })
-}
+const testPeople = people;
 
 it('should render loader', () => {
     const container = shallow(<PersonList loading />)
@@ -23,3 +20,8 @@ it('should render loader', () => {
 it('should request fetch data', (done) => {
   mount(<PersonList people = {[]} fetchAll={done}/>)
 })
+
+it('should renders correctly', () => {
+  const tree = renderer.create(<PersonList people={testPeople} fetchAll={() => null} />);
+  expect(tree).toMatchSnapshot();
+});
