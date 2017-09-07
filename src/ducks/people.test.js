@@ -1,6 +1,8 @@
-import {addPersonSaga, ADD_PERSON, ADD_PERSON_REQUEST} from './people'
+import {addPersonSaga, ADD_PERSON_SUCCESS, ADD_PERSON_REQUEST} from './people'
 import {call, put} from 'redux-saga/effects'
 import {generateId} from './utils'
+import firebase from 'firebase'
+import {reset} from 'redux-form'
 
 it('should dispatch person with id', () => {
     const person = {
@@ -13,12 +15,19 @@ it('should dispatch person with id', () => {
         payload: person
     })
 
-    expect(saga.next().value).toEqual(call(generateId))
+    const peopleRef = firebase.database().ref('people')
 
-    const id = generateId()
+    expect(saga.next().value).toEqual(call([peopleRef, peopleRef.push], person))
 
-    expect(saga.next(id).value).toEqual(put({
-        type: ADD_PERSON,
-        payload: {id, ...person}
+    const key = generateId()
+
+    expect(saga.next({ key }).value).toEqual(put({
+        type: ADD_PERSON_SUCCESS,
+        payload: {...person, uid: key}
     }))
+
+    expect(saga.next().value).toEqual(put(reset('person')))
+
+    expect(saga.next().done).toBe(true)
+
 })
