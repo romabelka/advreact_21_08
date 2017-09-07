@@ -1,9 +1,10 @@
 import {appName} from '../config'
-import {Record, List} from 'immutable'
-import {put, call, takeEvery} from 'redux-saga/effects'
+import {all, take, call, put, select, takeEvery} from 'redux-saga/effects'
 import {generateId} from './utils'
 import {reset} from 'redux-form'
 import firebase from 'firebase'
+import {Record, OrderedMap, OrderedSet,List} from 'immutable'
+import {fbDatatoEntities} from './utils'
 
 const ReducerState = Record({
     entities: new List([])
@@ -16,9 +17,25 @@ const PersonRecord = Record({
     email: null
 })
 
+
+export const ReducerRecord = Record({
+    entities: new OrderedMap({}),
+    selected: new OrderedSet([]),
+    loading: false,
+    loaded: false
+})
+
+export const PeopleRecord = Record({
+    email: null,
+    firstName: null,
+    lastName: null
+})
+
 export const moduleName = 'people'
 const prefix = `${appName}/${moduleName}`
 export const ADD_PERSON_REQUEST = `${prefix}/ADD_PERSON_REQUEST`
+export const FETCH_ALL_REQUEST = `${prefix}/FETCH_ALL_REQUEST`
+export const FETCH_ALL_SUCCESS = `${prefix}/FETCH_ALL_REQUEST`
 export const ADD_PERSON = `${prefix}/ADD_PERSON`
 
 
@@ -27,7 +44,14 @@ export default function reducer(state = new ReducerState(), action) {
 
     switch (type) {
         case ADD_PERSON:
-            return state.update('entities', entities => entities.push(new PersonRecord(payload)))
+            return state.update('people', entities => entities.push(new PersonRecord(payload)))
+
+        case FETCH_ALL_SUCCESS:
+            console.log(payload,'payload');
+            return new OrderedMap(payload);
+
+        case FETCH_ALL_REQUEST:
+            return state.set('loading', true);
 
         default:
             return state
@@ -40,6 +64,12 @@ export function addPerson(person) {
         payload: person
     }
 }
+export function fetchAll() {
+    return {
+        type: FETCH_ALL_REQUEST
+    }
+}
+
 
 export const addPersonSaga = function * (action) {
 
@@ -63,19 +93,23 @@ export const addPersonSaga = function * (action) {
 }
 
 
-/*
-export function addPerson(person) {
-    return (dispatch) => {
-        dispatch({
-            type: ADD_PERSON,
-            payload: {
-                person: {id: Date.now(), ...person}
-            }
+export const fetchAllSaga = function * () {
+    console.log('while start');
+    while (true) {
+        yield console.log('while true')
+        yield take(FETCH_ALL_REQUEST)
+        const ref = firebase.database().ref('people')
+        const data = yield call([ref, ref.once], 'value')
+        console.log(data.val(), 'data.val()');
+        yield put({
+            type: FETCH_ALL_SUCCESS,
+            payload: data.val()
         })
     }
 }
-*/
-
 export const saga = function * () {
-    yield takeEvery(ADD_PERSON_REQUEST, addPersonSaga)
+    yield all([
+        fetchAllSaga(),
+        takeEvery(ADD_PERSON_REQUEST, addPersonSaga),
+    ])
 }
