@@ -11,3 +11,8 @@ window.runMigration = function() {
         if (!data.val()) saveEventsToFB()
     })
 }
+
+export function addPersonToFB(person) {
+    const peopleRef = firebase.database().ref('/people')
+    peopleRef.push(person)
+}

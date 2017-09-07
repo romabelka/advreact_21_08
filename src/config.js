@@ -1,13 +1,13 @@
 import firebase from 'firebase'
 
-export const appName = "advreact-21-08"
+export const appName = "advanced-react-varenik163"
 export const firebaseConfig = {
-    apiKey: "AIzaSyDjA6CeIHuni5lNm4ML1b-TSxJltsYUO8g",
-    authDomain: `${appName}.firebaseapp.com`,
-    databaseURL: `https://${appName}.firebaseio.com`,
-    projectId: appName,
-    storageBucket: `${appName}.appspot.com`,
-    messagingSenderId: "789814589283"
-}
+    apiKey: "AIzaSyDVBpwgGnjIYZu7iKWsPUiUPVvVc92XC2w",
+    authDomain: "advanced-react-varenik163.firebaseapp.com",
+    databaseURL: "https://advanced-react-varenik163.firebaseio.com",
+    projectId: "advanced-react-varenik163",
+    storageBucket: "advanced-react-varenik163.appspot.com",
+    messagingSenderId: "860869576887"
+};
 
 firebase.initializeApp(firebaseConfig)
