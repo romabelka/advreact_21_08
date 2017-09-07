@@ -67,7 +67,7 @@ export class EventList extends Component {
         return this.props.events[index]
     }
 
-    handleRowClick = (rowData) => {
+    handleRowClick = ({ rowData }) => {
         const {selectEvent} = this.props
         selectEvent && selectEvent(rowData.uid)
     }
@@ -75,5 +75,5 @@ export class EventList extends Component {
 
 export default connect(state => ({
     events: eventListSelector(state),
-    loading: state[moduleName].loading
+    loaded: state[moduleName].loaded
 }), {fetchLazy, selectEvent})(EventList)
