@@ -4,18 +4,16 @@ import {moduleName, selectEvent, fetchAll} from '../../ducks/people'
 import {Table, Column, InfiniteLoader} from 'react-virtualized'
 import 'react-virtualized/styles.css'
 import Loader from '../common/Loader'
+
 export class PeopleList extends Component {
     static propTypes = {};
 
-    componentWillMount() {
+    componentDidMount() {
         this.props.fetchAll()
     }
 
     render() {
-        const {loaded, state, people, loading} = this.props
-        console.log(people.toArray(), 'state.getHostNode');
-        console.log(loading, 'loading');
-
+        const {loading, people} = this.props
         return (
             <div>
                 {loading ? <Loader/>:
