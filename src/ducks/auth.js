@@ -30,6 +30,7 @@ export default function reducer(state = new ReducerRecord(), action) {
         case SIGN_IN_REQUEST:
             return state.set('loading', true)
 
+        case SIGN_UP_SUCCESS:
         case SIGN_IN_SUCCESS:
             return state
                 .set('loading', false)
