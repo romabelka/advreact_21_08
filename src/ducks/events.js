@@ -4,7 +4,6 @@ import {Record, OrderedMap, OrderedSet} from 'immutable'
 import firebase from 'firebase'
 import {createSelector} from 'reselect'
 import {fbDatatoEntities} from './utils'
-
 /**
  * Constants
  * */
@@ -36,7 +35,6 @@ export const EventRecord = Record({
     when: null,
     month: null,
     submissionDeadline: null
-
 })
 
 export default function reducer(state = new ReducerRecord(), action) {

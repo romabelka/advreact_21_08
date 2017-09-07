@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import {reduxForm, Field} from 'redux-form'
 import validateEmail from 'email-validator'
 import ErrorField from '../common/ErrorField'
+import PeopleList from './PeopleList'
 
 class NewPersonForm extends Component {
     static propTypes = {
@@ -19,6 +20,7 @@ class NewPersonForm extends Component {
                         <input type="submit" />
                     </div>
                 </form>
+                <PeopleList/>
             </div>
         )
     }
