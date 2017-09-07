@@ -2,7 +2,7 @@ import {addPersonSaga, ADD_PERSON, ADD_PERSON_REQUEST} from './people'
 import {call, put} from 'redux-saga/effects'
 import {generateId} from './utils'
 
-it('should dispatch person with id', () => {
+xit('should dispatch person with id', () => {
     const person = {
         firstName: 'Roman',
         email: 'test@test.com'
