@@ -18,6 +18,6 @@ it('should render people list', () => {
 
     const rows = container.find('.test--people-list__row')
 
-    expect(rows.length).toEqual(testEvents.length)
+    expect(rows.length).toEqual(testPeople.length)
 })
 
