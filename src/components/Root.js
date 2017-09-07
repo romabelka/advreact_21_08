@@ -8,6 +8,7 @@ import ProtectedRoute from './common/ProtectedRoute'
 import {connect} from 'react-redux'
 import {moduleName, signOut} from '../ducks/auth'
 import {Link} from 'react-router-dom'
+import CustomDragLayer from './CustomDragLayer'
 
 class Root extends Component {
     static propTypes = {
@@ -26,6 +27,7 @@ class Root extends Component {
                 <ProtectedRoute path="/people" component={PersonPage}/>
                 <ProtectedRoute path="/events" component={EventsPage}/>
                 <Route path="/auth" component={AuthPage}/>
+                <CustomDragLayer />
             </div>
         )
     }
