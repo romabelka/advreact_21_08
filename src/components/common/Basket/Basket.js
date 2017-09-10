@@ -8,8 +8,8 @@ class Basket extends Component {
 
     render() {
         return (
-            <div>
-                <h1>Unauthorized, please <Link to="/auth/signin">Sign In</Link></h1>
+            <div style={{width:'200px',height:'100px    ',backgroundColor:'#a68585'}}>
+                Drag event here to delete!
             </div>
         )
     }
