@@ -1,34 +1,48 @@
-import React, { Component } from 'react'
+import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {moduleName, fetchAll, selectEvent, eventListSelector} from '../../ducks/events'
+import {List, InfiniteLoader} from 'react-virtualized'
+import {moduleName, fetchLazy, selectEvent, eventListSelector} from '../../ducks/events'
 import Loader from '../common/Loader'
+import TableEventCard from './TableEventCard'
 
 export class EventList extends Component {
-    static propTypes = {
-
-    };
+    static propTypes = {};
 
     componentDidMount() {
-        this.props.fetchAll()
+        this.props.fetchLazy()
+    }
+
+    isRowLoaded = ({index}) => index < this.props.events.length
+    loadMoreRows = () => {
+        console.log('---', 'load more')
+        this.props.fetchLazy()
     }
 
     render() {
+        const {loaded, events} = this.props
         if (this.props.loading) return <Loader/>
         return (
-            <div>
-                <table>
-                    <tbody>
-                        {this.getRows()}
-                    </tbody>
-                </table>
-            </div>
+            <InfiniteLoader
+                isRowLoaded={this.isRowLoaded}
+                rowCount={loaded ? events.length : events.length + 1}
+                loadMoreRows={this.loadMoreRows}
+            >
+                {({onRowsRendered, registerChild}) =>
+                    <List
+                        rowCount={5}
+                        rowHeight={100}
+                        height={300}
+                        width={600}
+                        rowRenderer={this.getRows}
+                    />
+                }
+            </InfiniteLoader>
         )
     }
 
-    getRows() {
-        return this.props.events.map(this.getRow)
+    getRows = (event) => {
+        return this.props.events.map(event => <TableEventCard event={event}/>)
     }
-
     getRow = (event) => {
         return <tr key={event.uid} className="test--event-list__row" onClick={this.handleRowClick(event.uid)}>
             <td>{event.title}</td>
@@ -36,14 +50,12 @@ export class EventList extends Component {
             <td>{event.month}</td>
         </tr>
     }
-
     handleRowClick = (uid) => () => {
         const {selectEvent} = this.props
         selectEvent && selectEvent(uid)
     }
 }
-
 export default connect(state => ({
     events: eventListSelector(state),
     loading: state[moduleName].loading
-}), {fetchAll, selectEvent})(EventList)
+}), {fetchLazy, selectEvent})(EventList)
