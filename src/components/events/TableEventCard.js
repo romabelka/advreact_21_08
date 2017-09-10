@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import {Link} from 'react-router-dom'
+import {DragSource} from 'react-dnd'
 
 class TableEventCard extends Component {
     static propTypes = {};
@@ -7,7 +8,7 @@ class TableEventCard extends Component {
     render() {
         console.log('TableEventCard',this.props);
         const {uid, title, where, month} = this.props.event;
-        return (
+        return this.props.connectDragSource(
                 <div style={{border:'1px solid black'}} key={uid} onClick={()=>console.log('onClick')} className="test--event-list__row" >
                     <span>{title}</span>
                     <span>{where}</span>
@@ -16,4 +17,19 @@ class TableEventCard extends Component {
         )
     }
 }
-export default TableEventCard
+
+const spec = {
+    beginDrag(props) {
+        return {
+            uid:props.event.uid
+        }
+    }
+}
+
+const collect = (connect, monitor) => ({
+    connectDragSource: connect.dragSource(),
+    connectPreview: connect.dragPreview(),
+    isDragging: monitor.isDragging(),
+})
+
+export default DragSource('event', spec, collect)(TableEventCard)
