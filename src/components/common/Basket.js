@@ -1,6 +1,9 @@
 import React, { Component } from 'react'
 import {Link} from 'react-router-dom'
 import {DropTarget} from 'react-dnd'
+import {connect} from 'react-redux'
+import {deleteEvent} from '../../ducks/events'
+
 
 class Basket extends Component {
     static propTypes = {
@@ -19,6 +22,7 @@ class Basket extends Component {
         )
     }
 }
+
 const collect = (connect, monitor) => ({
     connectDropTarget: connect.dropTarget(),
     canDrop: monitor.canDrop(),
@@ -28,10 +32,10 @@ const collect = (connect, monitor) => ({
 const spec = {
     drop(props, monitor) {
         const eventDragUid = monitor.getItem().uid
-
         console.log(eventDragUid,'eventDragUid');
+        props.deleteEvent(eventDragUid);
         return { eventDragUid }
     }
 }
 
-export default DropTarget('event',spec, collect)(Basket)
+export default connect(null, {deleteEvent}) (DropTarget ('event',spec, collect)(Basket))

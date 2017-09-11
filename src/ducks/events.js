@@ -1,4 +1,4 @@
-import {all, take, call, put, select} from 'redux-saga/effects'
+import {all, take, takeEvery, call, put, select} from 'redux-saga/effects'
 import {appName} from '../config'
 import {Record, OrderedMap, OrderedSet} from 'immutable'
 import firebase from 'firebase'
@@ -17,6 +17,8 @@ export const FETCH_LAZY_REQUEST = `${prefix}/FETCH_LAZY_REQUEST`
 export const FETCH_LAZY_START = `${prefix}/FETCH_LAZY_START`
 export const FETCH_LAZY_SUCCESS = `${prefix}/FETCH_LAZY_SUCCESS`
 export const SELECT_EVENT = `${prefix}/SELECT_EVENT`
+export const DELETE_EVENT = `${prefix}/DELETE_EVENT`
+export const DELETE_EVENT_REQUEST = `${prefix}/DELETE_EVENT_REQUEST`
 
 /**
  * Reducer
@@ -93,6 +95,44 @@ export function fetchAll() {
     }
 }
 
+export function deleteEvent (eventDragUid) {
+    console.log(eventDragUid ,'load data');
+    return {
+        type: DELETE_EVENT_REQUEST,
+        payload: { eventDragUid }
+    }
+}
+
+export const deleteEventSaga = function * (action) {
+    console.log(action,'action');
+
+    const peopleRef = firebase.database().ref('events');
+    console.log( peopleRef.child(action.payload.eventDragUid),'peopleRef');
+    peopleRef.child(action.payload.eventDragUid).remove()
+   ;
+    // return {
+    //     type: DELETE_EVENT_REQUEST,
+    //     payload: { eventDragUid }
+    // }
+    // const eventsRef = firebase.database().ref(`people/${personUid}/events`)
+    // const state = yield select(stateSelector)
+    // const events = state.getIn(['entities', personUid, 'events']).concat(eventUid)
+    //
+    // try {
+    //     yield call([eventsRef, eventsRef.set], events)
+    //     yield put({
+    //         type: ADD_EVENT_SUCCESS,
+    //         payload: {
+    //             personUid,
+    //             events
+    //         }
+    //     })
+    // } catch (e) {
+    //     console.log(e,'error')
+    // }
+
+}
+
 export function selectEvent(uid) {
     return {
         type: SELECT_EVENT,
@@ -157,6 +197,7 @@ export const fetchLazySaga = function * () {
 export function* saga() {
     yield all([
         fetchAllSaga(),
-        fetchLazySaga()
+        fetchLazySaga(),
+        takeEvery(DELETE_EVENT_REQUEST, deleteEventSaga)
     ])
 }
