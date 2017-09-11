@@ -5,7 +5,7 @@ import {Record} from 'immutable'
 import {all, cps, call, put, take, takeEvery} from 'redux-saga/effects'
 import {push} from 'react-router-redux'
 
-export const ReducerRecord = Record({
+const ReducerRecord = Record({
     user: null,
     error: null,
     loading: false
@@ -16,8 +16,8 @@ export const SIGN_UP_REQUEST = `${appName}/${moduleName}/SIGN_UP_REQUEST`
 export const SIGN_UP_SUCCESS = `${appName}/${moduleName}/SIGN_UP_SUCCESS`
 export const SIGN_UP_ERROR = `${appName}/${moduleName}/SIGN_UP_ERROR`
 export const SIGN_IN_REQUEST = `${appName}/${moduleName}/SIGN_IN_REQUEST`
-export const SIGN_IN_ERROR = `${appName}/${moduleName}/SIGN_IN_ERROR`
 export const SIGN_IN_SUCCESS = `${appName}/${moduleName}/SIGN_IN_SUCCESS`
+export const SIGN_IN_ERROR = `${appName}/${moduleName}/SIGN_IN_ERROR`
 export const SIGN_OUT_REQUEST = `${appName}/${moduleName}/SIGN_OUT_REQUEST`
 export const SIGN_OUT_SUCCESS = `${appName}/${moduleName}/SIGN_OUT_SUCCESS`
 
@@ -27,8 +27,13 @@ export default function reducer(state = new ReducerRecord(), action) {
 
     switch (type) {
         case SIGN_UP_REQUEST:
-        case SIGN_IN_REQUEST:
             return state.set('loading', true)
+
+        case SIGN_UP_SUCCESS:
+            return state
+                .set('loading', false)
+                .set('user', payload.user)
+                .set('error', null)
 
         case SIGN_IN_SUCCESS:
             return state
@@ -37,6 +42,10 @@ export default function reducer(state = new ReducerRecord(), action) {
                 .set('error', null)
 
         case SIGN_UP_ERROR:
+            return state
+                .set('loading', false)
+                .set('error', error)
+
         case SIGN_IN_ERROR:
             return state
                 .set('loading', false)
@@ -75,7 +84,7 @@ export const signUpSaga = function * () {
 
     while (true) {
         const action = yield take(SIGN_UP_REQUEST)
-
+        
         try {
             const user = yield call(
                 [auth, auth.createUserWithEmailAndPassword],
@@ -96,11 +105,12 @@ export const signUpSaga = function * () {
 
 export const signInSaga = function * () {
     const auth = firebase.auth()
-
+    
     while (true) {
-        const action = yield take(SIGN_IN_REQUEST)
-
+        const action = yield take(SIGN_IN_REQUEST);
+        // debugger
         try {
+                //UserCredential
             const user = yield call(
                 [auth, auth.signInWithEmailAndPassword],
                 action.payload.email, action.payload.password
