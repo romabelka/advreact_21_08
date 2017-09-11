@@ -1,7 +1,7 @@
 import {appName} from '../config'
 import {Record, OrderedMap} from 'immutable'
-import {put, call, takeEvery, all, select, fork, spawn, cancel, cancelled, race} from 'redux-saga/effects'
-import {delay} from 'redux-saga'
+import {put, call, takeEvery, all, select, fork, spawn, cancel, cancelled, race, take} from 'redux-saga/effects'
+import {delay, eventChannel} from 'redux-saga'
 import {fbDatatoEntities} from './utils'
 import {reset} from 'redux-form'
 import firebase from 'firebase'
@@ -156,16 +156,56 @@ export const backgroundSyncSaga = function * () {
 }
 
 export const cancellableSync = function * () {
-    yield race({
-        sync: backgroundSyncSaga(),
-        delay: delay(6000)
-    })
+    let task
+    while (true) {
+        const {payload} = yield take('@@router/LOCATION_CHANGE')
+
+        if (payload && payload.pathname.includes('people')) {
+            task = yield fork(realtimeSync)
+/*
+            yield race({
+                sync: realtimeSync(),
+                delay: delay(6000)
+            })
+*/
+        } else if (task) {
+            yield cancel(task)
+        }
+    }
 
 /*
     const task = yield fork(backgroundSyncSaga)
     yield delay(6000)
     yield cancel(task)
 */
+}
+
+const createPeopleSocket = () => eventChannel(emmit => {
+    const ref = firebase.database().ref('people')
+    const callback = (data) => emmit({ data })
+    ref.on('value', callback)
+
+    return () => {
+        console.log('---', 'unsubscribing')
+        ref.off('value', callback)
+    }
+})
+
+export const realtimeSync = function * () {
+    const chan = yield call(createPeopleSocket)
+    try {
+        while (true) {
+            const {data} = yield take(chan)
+
+            yield put({
+                type: FETCH_ALL_SUCCESS,
+                payload: data.val()
+            })
+        }
+    } finally {
+        yield call([chan, chan.close])
+        console.log('---', 'cancelled realtime saga')
+    }
 }
 
 export const saga = function * () {
