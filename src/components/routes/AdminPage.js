@@ -3,7 +3,7 @@ import PeopleList from '../people/PeopleList'
 import EventTable from '../events/VirtualizedEventList'
 import SelectedEvents from '../events/SelectedEvents'
 import TableEventList from '../events/TableEventList'
-import Basket from '../common/Basket/Basket.js'
+import Basket from '../common/Basket'
 
 class AdminPage extends Component {
     static propTypes = {
