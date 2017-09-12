@@ -17,8 +17,8 @@ export class EventList extends Component {
         console.log('---', 'load more')
         this.props.fetchLazy()
     }
-
     render() {
+
         const {loaded, events} = this.props
         if (this.props.loading) return <Loader/>
         return (

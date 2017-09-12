@@ -48,6 +48,10 @@ export default function reducer(state = new ReducerRecord(), action) {
         case FETCH_ALL_REQUEST:
         case FETCH_LAZY_START:
             return state.set('loading', true)
+        
+        case DELETE_EVENT:
+            console.log('delete');
+            return state.update('entities', selected => selected.remove(payload.eventDragUid))
 
         case FETCH_ALL_SUCCESS:
             return state
@@ -105,10 +109,15 @@ export function deleteEvent (eventDragUid) {
 
 export const deleteEventSaga = function * (action) {
     console.log(action,'action');
-
+    const eventDragUid = action.payload.eventDragUid;
     const peopleRef = firebase.database().ref('events');
-    console.log( peopleRef.child(action.payload.eventDragUid),'peopleRef');
     peopleRef.child(action.payload.eventDragUid).remove()
+    yield put({
+        type: DELETE_EVENT,
+        payload: {
+            eventDragUid
+        }
+    })
    ;
     // return {
     //     type: DELETE_EVENT_REQUEST,
