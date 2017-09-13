@@ -33,6 +33,7 @@ const spec = {
     drop(props, monitor) {
         const eventDragUid = monitor.getItem().uid
         console.log(eventDragUid,'eventDragUid');
+        console.log('start');
         props.deleteEvent(eventDragUid);
         return { eventDragUid }
     }

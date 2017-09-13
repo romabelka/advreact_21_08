@@ -109,15 +109,22 @@ export function deleteEvent (eventDragUid) {
 
 export const deleteEventSaga = function * (action) {
     console.log(action,'action');
-    const eventDragUid = action.payload.eventDragUid;
-    const peopleRef = firebase.database().ref('events');
-    peopleRef.child(action.payload.eventDragUid).remove()
+    const eventDragUid = yield action.payload.eventDragUid;
+    yield console.log(eventDragUid,'final eventDragUid');
+    const peopleRef =  firebase.database().ref(`events/${action.payload.eventDragUid}`);
+    try {
+    yield call([peopleRef, peopleRef.remove])
+    // yield peopleRef.child(action.payload.eventDragUid).remove()
     yield put({
         type: DELETE_EVENT,
         payload: {
             eventDragUid
         }
     })
+    }
+    catch (e) {
+        console.log(`erro`);
+    }
    ;
     // return {
     //     type: DELETE_EVENT_REQUEST,

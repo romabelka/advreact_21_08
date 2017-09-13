@@ -20,6 +20,7 @@ export class EventList extends Component {
     render() {
 
         const {loaded, events} = this.props
+        console.log(events.length,'events.length');
         if (this.props.loading) return <Loader/>
         return (
             <InfiniteLoader
@@ -29,7 +30,7 @@ export class EventList extends Component {
             >
                 {({onRowsRendered, registerChild}) =>
                     <List
-                        rowCount={5}
+                        rowCount={events.length}
                         rowHeight={100}
                         height={300}
                         width={600}
