@@ -1,6 +1,7 @@
 import {appName} from '../config'
 import {Record, OrderedMap} from 'immutable'
-import {put, call, takeEvery, all, select} from 'redux-saga/effects'
+import {put, call, takeEvery, all, select, fork, spawn, cancel, cancelled, race, take} from 'redux-saga/effects'
+import {delay, eventChannel} from 'redux-saga'
 import {fbDatatoEntities} from './utils'
 import {reset} from 'redux-form'
 import firebase from 'firebase'
@@ -141,7 +142,75 @@ export const addEventSaga = function * (action) {
 
 }
 
+export const backgroundSyncSaga = function * () {
+    try {
+        while (true) {
+            yield call(fetchAllSaga)
+            yield delay(2000)
+        }
+    } finally {
+        if (yield  cancelled()) {
+            console.log('---', 'cancelled sync saga')
+        }
+    }
+}
+
+export const cancellableSync = function * () {
+    let task
+    while (true) {
+        const {payload} = yield take('@@router/LOCATION_CHANGE')
+
+        if (payload && payload.pathname.includes('people')) {
+            task = yield fork(realtimeSync)
+/*
+            yield race({
+                sync: realtimeSync(),
+                delay: delay(6000)
+            })
+*/
+        } else if (task) {
+            yield cancel(task)
+        }
+    }
+
+/*
+    const task = yield fork(backgroundSyncSaga)
+    yield delay(6000)
+    yield cancel(task)
+*/
+}
+
+const createPeopleSocket = () => eventChannel(emmit => {
+    const ref = firebase.database().ref('people')
+    const callback = (data) => emmit({ data })
+    ref.on('value', callback)
+
+    return () => {
+        console.log('---', 'unsubscribing')
+        ref.off('value', callback)
+    }
+})
+
+export const realtimeSync = function * () {
+    const chan = yield call(createPeopleSocket)
+    try {
+        while (true) {
+            const {data} = yield take(chan)
+
+            yield put({
+                type: FETCH_ALL_SUCCESS,
+                payload: data.val()
+            })
+        }
+    } finally {
+        yield call([chan, chan.close])
+        console.log('---', 'cancelled realtime saga')
+    }
+}
+
 export const saga = function * () {
+    yield spawn(cancellableSync)
+
     yield all([
         takeEvery(ADD_PERSON_REQUEST, addPersonSaga),
         takeEvery(FETCH_ALL_REQUEST, fetchAllSaga),
