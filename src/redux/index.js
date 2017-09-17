@@ -5,9 +5,10 @@ import {routerMiddleware} from 'react-router-redux'
 import createSagaMiddleware from 'redux-saga'
 import history from '../history'
 import rootSaga from './saga'
+import { composeWithDevTools } from 'redux-devtools-extension';
 
 const sagaMiddleware = createSagaMiddleware()
-const enhancer = applyMiddleware(sagaMiddleware, routerMiddleware(history), logger)
+const enhancer = composeWithDevTools(applyMiddleware(sagaMiddleware, routerMiddleware(history)))
 
 const store = createStore(reducer, enhancer)
 window.store = store
